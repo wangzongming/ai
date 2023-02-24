@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>马克帮你写代码</title>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css" />
+		<style>
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			body {
+				padding: 12px;
+				box-sizing: border-box;
+				width: 100%;
+				height: 100vh;
+				overflow: hidden;
+				font-size: 14px;
+			}
+			#content {
+				width: 100%;
+				height: 70%;
+				box-sizing: border-box;
+				display: flex;
+			}
+			#preview {
+				height: 100%;
+				width: 60%;
+				box-shadow: 0px 0px 10px #ccc;
+				box-sizing: border-box;
+				padding: 12px;
+				overflow: auto;
+			}
+			.codeWrapper {
+				height: 100%;
+				width: 40%;
+				margin-left: 12px;
+				box-shadow: 0px 0px 10px #ccc;
+				box-sizing: border-box;
+				box-sizing: border-box;
+				padding: 12px;
+				overflow: auto;
+			}
+			#code {
+				height: 100%;
+			}
+			#input-wrapper {
+				width: 100%;
+				height: 23%;
+				padding: 12px 0px;
+				box-sizing: border-box;
+				display: flex;
+			}
+			textarea {
+				height: 100%;
+				/* width: 100%; */
+				flex: 1;
+				border: none;
+				box-sizing: border-box;
+				padding: 12px;
+				line-height: 18px;
+				outline: none;
+				box-shadow: 0px 0px 10px #ccc;
+			}
+			.enterWrapper {
+				box-shadow: 0px 0px 10px #ccc;
+				width: calc(50% - 6px);
+				margin-left: 12px;
+				padding: 6px;
+			}
+
+			.bottom {
+				display: flex;
+			}
+			#submit {
+				width: 100%;
+				padding: 14px 0px;
+				background-color: rgb(15, 152, 231);
+				border: none;
+				color: aliceblue;
+				cursor: pointer;
+			}
+
+			.desc {
+				font-size: 12px;
+				text-align: center;
+				font-weight: 700;
+				color: red;
+			}
+
+			/* ========== 以下为键盘样式 ========== */
+			.keyboard {
+				width: 100%;
+				height: 100%;
+				display: grid;
+				grid-template-columns: repeat(30, 1fr);
+				grid-template-rows: repeat(5, 1fr);
+				gap: 6px;
+				justify-content: center;
+				align-items: center;
+				background: rgb(255, 254, 254);
+				overflow: hidden;
+				font-size: 12px;
+			}
+
+			.key {
+				border-radius: 3px;
+				grid-column: auto/span 2;
+				display: grid;
+				place-items: center;
+				height: 30px;
+				cursor: pointer;
+				color: #fff;
+				background: rgb(15, 231, 141);
+				box-shadow: -3px -3px 10px #fff, 3px 3px 6px #ddd;
+				transition: all 0.3s;
+				line-height: 8px;
+			}
+
+			.key:hover {
+				box-shadow: 0 0 0 #fff, 0 0 0 #ddd, inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 10px rgba(255, 255, 255, 0.3);
+			}
+			.click {
+				box-shadow: 0 0 0 #fff, 0 0 0 #ddd, inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 10px rgba(255, 255, 255, 0.6);
+			}
+
+			/*用于指定个别网格的大小类名*/
+			.kl3 {
+				grid-column: auto/span 3;
+			}
+
+			.kl4 {
+				grid-column: auto/span 4;
+			}
+
+			.kl5 {
+				grid-column: auto/span 5;
+			}
+
+			.kl12 {
+				grid-column: auto/span 12;
+			}
+
+			/*用于指定个别网格的颜色类名*/
+			.color1 {
+				background: #ed4c67;
+				color: #fbdbe1;
+			}
+
+			.color2 {
+				background: #d63031;
+				color: #f7d6d6;
+			}
+
+			.color3 {
+				background: #12cbc4;
+				color: #cafaf8;
+			}
+
+			.color4 {
+				background: #ee5a24;
+				color: #fcded3;
+			}
+
+			.color5 {
+				background: #fdcb6e;
+				color: #fff5e2;
+			}
+
+			.color6 {
+				background: #1e90ff;
+				color: #d2e9ff;
+			}
+
+			.color7 {
+				background: #be2edd;
+				color: #f2d5f8;
+			}
+
+			.color8 {
+				background: #5352ed;
+				color: #dddcfb;
+			}
+
+			.color9 {
+				background: #26de81;
+				color: #d4f8e6;
+			}
+
+			.entering {
+				box-shadow: 0 0 10px #474545, 0 0 18px #807e7e, inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 10px rgba(141, 140, 140, 0.6);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<div id="preview"></div>
+			<pre class="codeWrapper">
+				<code id="code"></code>
+			</pre>
+		</div>
+		<div id="input-wrapper">
+			<textarea id="input" placeholder="画一只猫咪 、 把猫咪居中 、 把猫咪改为蓝色 、 创建一个性别下拉选择 ..."></textarea>
+			<div class="enterWrapper">
+				<!-- 键盘 -->
+				<div class="keyboard">
+					<!-- entering -->
+					<div class="key color1" id="key-21" title="Esc">Esc</div>
+					<div class="key" id="key-49">
+						<span>!</span>
+						<span>1</span>
+					</div>
+					<div class="key" id="key-50">
+						<span>@</span>
+						<span>2</span>
+					</div>
+					<div class="key" id="key-51">
+						<span>#</span>
+						<span>3</span>
+					</div>
+					<div class="key" id="key-52">
+						<span>$</span>
+						<span>4</span>
+					</div>
+					<div class="key" id="key-53">
+						<span>%</span>
+						<span>5</span>
+					</div>
+					<div class="key" id="key-54">
+						<span>^</span>
+						<span>6</span>
+					</div>
+					<div class="key" id="key-55">
+						<span>&amp;</span>
+						<span>7</span>
+					</div>
+					<div class="key" id="key-56">
+						<span>*</span>
+						<span>8</span>
+					</div>
+					<div class="key" id="key-57">
+						<span>(</span>
+						<span>9</span>
+					</div>
+					<div class="key" id="key-48">
+						<span>)</span>
+						<span>0</span>
+					</div>
+					<div class="key" id="key-189">
+						<span>_</span>
+						<span>-</span>
+					</div>
+					<div class="key" id="key-187">
+						<span>+</span>
+						<span>=</span>
+					</div>
+					<div class="key color1 kl4" id="key-8" title="Backspace">Backspace</div>
+					<div class="key color3 kl3" id="key-9" title="~">~</div>
+					<div class="key" id="key-q">Q</div>
+					<div class="key" id="key-w">W</div>
+					<div class="key" id="key-e">E</div>
+					<div class="key" id="key-r">R</div>
+					<div class="key" id="key-t">T</div>
+					<div class="key" id="key-y">Y</div>
+					<div class="key" id="key-u">U</div>
+					<div class="key" id="key-i">I</div>
+					<div class="key" id="key-o">O</div>
+					<div class="key" id="key-p">P</div>
+					<div class="key" id="key-219">
+						<span>{</span>
+						<span>[</span>
+					</div>
+					<div class="key" id="key-221">
+						<span>}</span>
+						<span>]</span>
+					</div>
+					<div class="key gc3" id="key-220">
+						<span>|</span>
+						<span>\</span>
+					</div>
+					<div class="key color4 kl4" id="key-20" title="Tab">Tab</div>
+					<div class="key" id="key-a">A</div>
+					<div class="key" id="key-s">S</div>
+					<div class="key" id="key-d">D</div>
+					<div class="key" id="key-f">F</div>
+					<div class="key" id="key-g">G</div>
+					<div class="key" id="key-h">H</div>
+					<div class="key" id="key-j">J</div>
+					<div class="key" id="key-k">K</div>
+					<div class="key" id="key-l">L</div>
+					<div class="key" id="key-186">
+						<span>:</span>
+						<span>;</span>
+					</div>
+					<div class="key" id="key-222">
+						<span>"</span>
+						<span>,</span>
+					</div>
+					<div class="key color5 kl4" id="key-13" title="Tab">Tab</div>
+					<div class="key color6 kl5" id="key-16" title="Shift">Shift</div>
+					<div class="key" id="key-z">Z</div>
+					<div class="key" id="key-x">X</div>
+					<div class="key" id="key-c">C</div>
+					<div class="key" id="key-v">V</div>
+					<div class="key" id="key-b">B</div>
+					<div class="key" id="key-n">N</div>
+					<div class="key" id="key-m">M</div>
+					<div class="key" id="key-188">
+						<span>&lt;</span>
+						<span>,</span>
+					</div>
+					<div class="key" id="key-190">
+						<span>&gt;</span>
+						<span>.</span>
+					</div>
+					<div class="key" id="key-191">
+						<span>?</span>
+						<span>/</span>
+					</div>
+					<div class="key color5 kl5" id="key-16" title="Shift">Shift</div>
+					<div class="key color6 kl3" id="key-17" title="Ctrl">Ctrl</div>
+					<div class="key color7 kl3" id="key-91" title="win">win</div>
+					<div class="key color5 kl3" id="key-18" title="Alt">Alt</div>
+					<div class="key kl12" id="key-32" title=""></div>
+					<div class="key color3 kl3" id="key-37" title="↑">↑</div>
+					<div class="key color9" id="key-38" title="←">←</div>
+					<div class="key color9" id="key-40" title="→">→</div>
+					<div class="key color7" id="key-39" title="↓">↓</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<button id="submit">提交</button>
+		</div>
+		<div class="desc">如果用户在五分钟之内无任何操作，将自动清空当前用户数据</div>
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<script>
+			const submitBtn = document.querySelector("#submit");
+			const previewDom = document.querySelector("#preview");
+			const codeDom = document.querySelector("#code");
+			const inputDom = document.querySelector("#input");
+			const userIdDom = document.querySelector("#userId");
+			const keyDoms = document.querySelectorAll(".key");
+
+			var ing = false;
+			// 用户
+			var userId = `user_${parseInt(Math.random() * 10000000 + 1)}_${parseInt(Math.random() * 10000 + 1)}_${parseInt(Math.random() * 1000 + 1)}`;
+
+			submitBtn.onclick = () => {
+				const val = inputDom.value;
+				if (ing) return;
+				if (!val || val.length < 5) {
+					submitBtn.innerHTML = "提交(请输入大于 5 个字的问题)";
+					return;
+				}
+
+				console.log("输入：", val);
+				submitBtn.innerHTML = "思考中...";
+				// 清空输入框
+				inputDom.value = "";
+
+				var allCode = codeDom.innerText;
+
+				// 先把注释写好
+				allCode += `\n	// ${val}\n`;
+				const highlightedCode = hljs.highlightAuto(allCode).value;
+				codeDom.innerHTML = highlightedCode;
+
+				ing = true;
+				fetch(`http://192.168.1.73:3000/ai?q=${val}&userId=${userId}`)
+					.then((res) => res.json())
+					.then((res) => {
+						const newCode = res.newCode;
+
+						submitBtn.innerHTML = "编码中...";
+						// 逐个输入
+						const codeArr = newCode.split("");
+						const speed = 30;
+						var allT = codeArr.length * speed;
+						codeArr.forEach((t, i) => {
+							setTimeout(() => {
+								// 键盘特效
+								let keyDom;
+								if (/[a-z]/g.test(`${t}`.toLocaleLowerCase())) {
+									keyDom = document.querySelector(`#key-${t}`);
+								} else {
+									// 特殊符号
+									const strMap = [
+										[["1", "!"], "49"],
+										[["2", "@"], "50"],
+										[["3", "#"], "51"],
+										[["4", "$"], "52"],
+										[["5", "%"], "53"],
+										[["6", "^"], "54"],
+										[["7", "&"], "55"],
+										[["8", "*"], "56"],
+										[["9", "("], "57"],
+										[["0", ")"], "48"],
+										[["_", "-"], "189"],
+										[["+", "="], "187"],
+										[["{", "["], "219"],
+										[["}", "]"], "221"],
+										[["|", "\\"], "220"],
+										[[";", ":"], "186"],
+										[['"', "'"], "222"],
+										[["<", ","], "188"],
+										[[">", "."], "190"],
+										[["?", "/"], "191"],
+									];
+									const tag = strMap.find((item) => item[0].includes(t));
+									if (tag) {
+										keyDom = document.querySelector(`#key-${tag[1]}`);
+									}
+								}
+								if (keyDom) {
+									keyDom.setAttribute("class", `${keyDom.className} entering`);
+									setTimeout(() => {
+										keyDom.setAttribute("class", `${keyDom.className.replace("entering", "")}`);
+									}, 50);
+								}
+
+								allCode += `${t}`;
+								allCode.replace(/(\s|\t)/g, "");
+								const highlightedCode = hljs.highlightAuto(allCode).value;
+								codeDom.innerHTML = highlightedCode;
+							}, speed * i);
+						});
+
+						// 执行代码
+						setTimeout(() => {
+							// 清空预览区域所有元素
+							while (previewDom.firstChild) {
+								previewDom.removeChild(previewDom.firstChild);
+							}
+
+							eval(res.allCode);
+							ing = false;
+							submitBtn.innerHTML = "提交";
+						}, allT);
+					});
+			};
+		</script>
+	</body>
+</html>
