@@ -1,0 +1,175 @@
+<!-- 
+ 马克是一个前端人。
+ 在左下角的输入框中输入你想实现的前端需求，然后点击提交，剩下的交给马克！  
+ 马克写的代码会放到右上空白区域、代码运行后的效果会在左上区域展示。
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>马克帮你写代码</title>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    </head>
+
+    <body>
+        <div class="top-content">
+            <div id="preview"></div>
+            <pre class="codeWrapper" id="code"></div> 
+  </div>
+  <div class="input-wrapper">
+    <div class="left">
+      <textarea id="input" autofocus="true" placeholder="画一只猫咪 、 把猫咪居中 、 把猫咪改为蓝色 、 创建一个性别下拉选择 ..."></textarea>
+      <div class="bottom">
+        <button id="submit">提交</button>
+      </div>
+      <div class="desc2">
+        支持：Java、Python、JavaScript、Go、Perl、PHP、Ruby、Swift、TypeScript、SQL、Shell ...  <br/>
+        在左下角的输入框中输入你想实现的前端需求，然后点击提交，剩下的交给马克！ <br/>
+        马克写的代码会放到右上空白区域、代码运行后的效果会在左上区域展示。 <br/>
+        如：绘制一个中国九九乘法表 、  绘制一首李白的诗
+      </div>
+      <div class="desc">如果用户在五分钟之内无任何操作，将自动清空当前用户数据</div>
+      <div class="desc">如果马克给出的代码在渲染期间报错了，需要刷新页面后方可继续使用。</div>
+    </div>
+    <div class="enterWrapper">
+      <!-- 键盘 -->
+      <div class="keyboard">
+        <!-- entering -->
+        <div class="key color1" id="key-21" title="Esc">Esc</div>
+        <div class="key" id="key-49">
+          <span>!</span>
+          <span>1</span>
+        </div>
+        <div class="key" id="key-50">
+          <span>@</span>
+          <span>2</span>
+        </div>
+        <div class="key" id="key-51">
+          <span>#</span>
+          <span>3</span>
+        </div>
+        <div class="key" id="key-52">
+          <span>$</span>
+          <span>4</span>
+        </div>
+        <div class="key" id="key-53">
+          <span>%</span>
+          <span>5</span>
+        </div>
+        <div class="key" id="key-54">
+          <span>^</span>
+          <span>6</span>
+        </div>
+        <div class="key" id="key-55">
+          <span>&amp;</span>
+          <span>7</span>
+        </div>
+        <div class="key" id="key-56">
+          <span>*</span>
+          <span>8</span>
+        </div>
+        <div class="key" id="key-57">
+          <span>(</span>
+          <span>9</span>
+        </div>
+        <div class="key" id="key-48">
+          <span>)</span>
+          <span>0</span>
+        </div>
+        <div class="key" id="key-189">
+          <span>_</span>
+          <span>-</span>
+        </div>
+        <div class="key" id="key-187">
+          <span>+</span>
+          <span>=</span>
+        </div>
+        <div class="key color1 kl4" id="key-8" title="Backspace">Backspace</div>
+        <div class="key color3 kl3" id="key-9" title="~">~</div>
+        <div class="key" id="key-q">Q</div>
+        <div class="key" id="key-w">W</div>
+        <div class="key" id="key-e">E</div>
+        <div class="key" id="key-r">R</div>
+        <div class="key" id="key-t">T</div>
+        <div class="key" id="key-y">Y</div>
+        <div class="key" id="key-u">U</div>
+        <div class="key" id="key-i">I</div>
+        <div class="key" id="key-o">O</div>
+        <div class="key" id="key-p">P</div>
+        <div class="key" id="key-219">
+          <span>{</span>
+          <span>[</span>
+        </div>
+        <div class="key" id="key-221">
+          <span>}</span>
+          <span>]</span>
+        </div>
+        <div class="key gc3" id="key-220">
+          <span>|</span>
+          <span>\</span>
+        </div>
+        <div class="key color4 kl4" id="key-20" title="Tab">Tab</div>
+        <div class="key" id="key-a">A</div>
+        <div class="key" id="key-s">S</div>
+        <div class="key" id="key-d">D</div>
+        <div class="key" id="key-f">F</div>
+        <div class="key" id="key-g">G</div>
+        <div class="key" id="key-h">H</div>
+        <div class="key" id="key-j">J</div>
+        <div class="key" id="key-k">K</div>
+        <div class="key" id="key-l">L</div>
+        <div class="key" id="key-186">
+          <span>:</span>
+          <span>;</span>
+        </div>
+        <div class="key" id="key-222">
+          <span>"</span>
+          <span>,</span>
+        </div>
+        <div class="key color5 kl4" id="key-13" title="Tab">Tab</div>
+        <div class="key color6 kl5" id="key-16" title="Shift">Shift</div>
+        <div class="key" id="key-z">Z</div>
+        <div class="key" id="key-x">X</div>
+        <div class="key" id="key-c">C</div>
+        <div class="key" id="key-v">V</div>
+        <div class="key" id="key-b">B</div>
+        <div class="key" id="key-n">N</div>
+        <div class="key" id="key-m">M</div>
+        <div class="key" id="key-188">
+          <span>&lt;</span>
+          <span>,</span>
+        </div>
+        <div class="key" id="key-190">
+          <span>&gt;</span>
+          <span>.</span>
+        </div>
+        <div class="key" id="key-191">
+          <span>?</span>
+          <span>/</span>
+        </div>
+        <div class="key color5 kl5" id="key-16" title="Shift">Shift</div>
+        <div class="key color6 kl3" id="key-17" title="Ctrl">Ctrl</div>
+        <div class="key color7 kl3" id="key-91" title="win">win</div>
+        <div class="key color5 kl3" id="key-18" title="Alt">Alt</div>
+        <div class="key kl12" id="key-32" title=""></div>
+        <div class="key color3 kl3" id="key-37" title="↑">↑</div>
+        <div class="key color9" id="key-38" title="←">←</div>
+        <div class="key color9" id="key-40" title="→">→</div>
+        <div class="key color7" id="key-39" title="↓">↓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 键盘音效 -->
+  <audio id="enterAudio" preload="auto">  
+   <source src="https://wangzongming.top/ai/enter.mp3"> 
+   </audio>
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script src="./main.js"></script>
+
+</html>

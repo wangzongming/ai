@@ -1,0 +1,206 @@
+* {
+    margin: 0px;
+    padding: 0px;
+  }
+  body {
+    padding: 12px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-size: 14px;
+    font-family: 'Fira Code',Consolas, 'Courier New', monospace;
+  }
+  .top-content {
+    width: 100%;
+    height: 68%;
+    box-sizing: border-box;
+    display: flex;
+  }
+  .top-content #preview {
+    height: 100%;
+    width: 60%;
+    box-shadow: 0px 0px 10px #ccc;
+    box-sizing: border-box;
+    padding: 12px;
+    overflow: auto;
+  }
+  .top-content .codeWrapper {
+    height: 100%;
+    width: 40%;
+    margin-left: 12px;
+    box-shadow: 0px 0px 10px #ccc;
+    box-sizing: border-box; 
+    padding: 12px;
+    overflow: auto;
+  }
+  .top-content #code {
+    height: 100%;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  
+  .input-wrapper {
+    width: 100%;
+    height: 32%;
+    padding: 12px 0px;
+    box-sizing: border-box;
+    display: flex; 
+  }
+  .input-wrapper .left{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+  }
+  .input-wrapper .left textarea { 
+    flex: 1;
+    border: none;
+    box-sizing: border-box;
+    padding: 12px;
+    line-height: 18px;
+    outline: none;
+    box-shadow: 0px 0px 10px #ccc;
+  }
+  .input-wrapper .left  .bottom {
+    /* display: flex; */
+    padding: 8px 0px;
+    box-sizing: border-box;
+  }
+  .bottom #submit {
+    width: 100%;
+    padding: 10px 0px;
+    background-color: rgb(15, 152, 231);
+    border: none;
+    color: aliceblue;
+    cursor: pointer;
+    border-radius: 2px; 
+  }
+  .bottom #submit:hover{
+    opacity: 0.9;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.568);
+    transition: 0.3s;
+  }
+  
+  .desc {
+    font-size: 12px;
+    /* text-align: center; */
+    font-weight: 700;
+    color: red;
+  }
+  .desc2{
+    color: rgb(145, 142, 142);
+    font-size: 10px;
+    padding: 6px 0px;
+  }
+  
+  .enterWrapper {
+    box-shadow: 0px 0px 10px #ccc;
+    width: calc(60% - 6px);
+    margin-left: 12px;
+    padding: 6px;
+  }
+  
+  /* ========== 以下为键盘样式 ========== */
+  .keyboard {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    background: rgb(255, 254, 254);
+    overflow: hidden;
+    font-size: 12px;
+  }
+  
+  .key {
+    border-radius: 3px;
+    grid-column: auto/span 2;
+    display: grid;
+    place-items: center;
+    height: 30px;
+    cursor: pointer;
+    color: #fff;
+    background: rgb(15, 231, 141);
+    box-shadow: -3px -3px 10px #fff, 3px 3px 6px #ddd;
+    transition: all 0.3s;
+    line-height: 8px;
+  }
+  
+  .key:hover {
+    box-shadow: 0 0 0 #fff, 0 0 0 #ddd, inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 10px rgba(255, 255, 255, 0.3);
+  }
+  .click {
+    box-shadow: 0 0 0 #fff, 0 0 0 #ddd, inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 10px rgba(255, 255, 255, 0.6);
+  }
+  
+  /*用于指定个别网格的大小类名*/
+  .kl3 {
+    grid-column: auto/span 3;
+  }
+  
+  .kl4 {
+    grid-column: auto/span 4;
+  }
+  
+  .kl5 {
+    grid-column: auto/span 5;
+  }
+  
+  .kl12 {
+    grid-column: auto/span 12;
+  }
+  
+  /*用于指定个别网格的颜色类名*/
+  .color1 {
+    background: #ed4c67;
+    color: #fbdbe1;
+  }
+  
+  .color2 {
+    background: #d63031;
+    color: #f7d6d6;
+  }
+  
+  .color3 {
+    background: #12cbc4;
+    color: #cafaf8;
+  }
+  
+  .color4 {
+    background: #ee5a24;
+    color: #fcded3;
+  }
+  
+  .color5 {
+    background: #fdcb6e;
+    color: #fff5e2;
+  }
+  
+  .color6 {
+    background: #1e90ff;
+    color: #d2e9ff;
+  }
+  
+  .color7 {
+    background: #be2edd;
+    color: #f2d5f8;
+  }
+  
+  .color8 {
+    background: #5352ed;
+    color: #dddcfb;
+  }
+  
+  .color9 {
+    background: #26de81;
+    color: #d4f8e6;
+  }
+  
+  .entering { 
+    box-shadow: 5px 5px 8px rgba(58, 58, 58, 0.808),
+    inset 0px 0px 22px rgba(19, 18, 18, 0.925);
+  
+  }
