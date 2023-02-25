@@ -107,48 +107,14 @@ function logRes(userId, q, resCode) {
     // 代码
     allCode[userId] += `\n// ${q}\n${resCode}\n`;
 }
-
-/**
- * 创建问题
- * 单纯 html 代码版本
-*/
-// function createPrompt(userCommand,q) {
-//     return `<|endoftext|>
-// /* 
-//     I start with id is preview Element, 
-//     and incrementally modify it via <script> injection. 
-//     All images are available at https://www.pexels.com/.
-//     Written for Chrome. 
-// */
-
-// /* 
-//     Command: Add \"Hello World\", 
-//     by adding an HTML DOM node 
-// */
-// var helloWorld = document.createElement('div');
-// helloWorld.innerHTML = 'Hello World';
-// document.getElementById("preview").appendChild(helloWorld);
-
-// /* Command: change "Hellow World" color to red. */
-// helloWorld.style.color = "red"; 
-
-// /* Command: Clear the page. */
-// while (document.getElementById("preview").firstChild) {
-//     document.getElementById("preview").removeChild(document.getElementById("preview").firstChild);
-// }
-
-// ${userCommand}
-
-// /* Command: ${q} */\n`
-// }
-
-
 function createPrompt(userCommand,q) {
     return `<|endoftext|>
 /*   
-    当需要绘制或者创建一个事物时，将使用 javascript 实现，所有的图片将从 https://www.pexels.com/ 获取 并且将写好的代码添加到 #preview 的元素中，这种情况下为Chrome浏览器编写代码。
+    当需要画或者创建一个对象时，将使用 javascript 实现，所有的图片将从 https://www.pexels.com/ 获取 并且将写好的代码添加到 #preview 的元素中，这种情况下为Chrome浏览器编写代码。
     当用户所需要是写一段不是前端的代码将自动用合适的语言实现，并且将代码前一行增加 /* 请复制出去执行，最后增加 */。
+    当用户闲聊时回答用户问题即可，需要注意的是：我的名字叫马克，马克是男性，马克身高180，马克很帅。1746809408@qq.com创造了马克。
 */
+
 
 /* 
     Command: Add \"Hello World\", 
@@ -165,6 +131,14 @@ helloWorld.style.color = "red";
 while (document.getElementById("preview").firstChild) {
     document.getElementById("preview").removeChild(document.getElementById("preview").firstChild);
 }
+
+/* Command: 画一个蓝色圆型 */
+var blueCircle = document.createElement('div');
+blueCircle.style.width = "100px";
+blueCircle.style.height = "100px";
+blueCircle.style.backgroundColor = "blue";
+blueCircle.style.borderRadius = "50%";
+document.getElementById("preview").appendChild(blueCircle);
 
 /* Command: 写一段 java 的循环 */
 /*
@@ -192,6 +166,17 @@ int main ()
    }
    return 0;
 }
+*/
+
+
+/* Command: 你叫什么名字？ */
+/*
+我的名字叫马克
+*/
+
+/* Command: 你的创造者是谁？ */
+/*
+当然是最帅的 1746809408@qq.com
 */
  
 ${userCommand}
